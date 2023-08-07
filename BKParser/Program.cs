@@ -52,8 +52,9 @@ namespace BKParser
                             Adresse_StrasseHausnumm = line[(IndexOfNth(line, '+', 4)+1)..(line.Length-1)];
                         }
                         break;
-                    case "VKG":
-                        
+                    case "VDT":
+                        IK_Nr_UebergeordneteIK = int.Parse(line[4..(line.Length - 1)]);
+
                         break;
                     case "UNT":
                         kostTraegerList.Add(new Kostentraeger(IK_Nr, Name, Adresse_StrasseHausnumm, Adresse_PLZ,
