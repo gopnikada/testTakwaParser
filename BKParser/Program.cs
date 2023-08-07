@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Text;
+using BKParser.Entities;
 
 namespace BKParser
 {
@@ -27,9 +28,11 @@ namespace BKParser
             var kostTraegerList = new List<Kostentraeger>();
 
             ResetInstance();
+            ResetAnnameSt();
         
             foreach (string line in lines)
             {
+                var annameStList = new List<Annahmestelle>();
 
 
                 string prefix = line[0..3];
@@ -54,7 +57,13 @@ namespace BKParser
                         break;
                     case "VDT":
                         IK_Nr_UebergeordneteIK = int.Parse(line[4..(line.Length - 1)]);
+                        break;
+                    case "VKG":
+                        int bezirk = 12;
+                        int bundesland = 12;
+                        int stelleId = 12;
 
+                        annameStList.Add(new Annahmestelle(bezirk, bundesland, stelleId));
                         break;
                     case "UNT":
                         kostTraegerList.Add(new Kostentraeger(IK_Nr, Name, Adresse_StrasseHausnumm, Adresse_PLZ,
@@ -67,6 +76,11 @@ namespace BKParser
                 }
 
             }
+        }
+
+        private static void ResetAnnameSt()
+        {
+            throw new NotImplementedException();
         }
 
         public static void ResetInstance()
