@@ -12,11 +12,9 @@ namespace BKParser
         public static string  Adresse_StrasseHausnumm { get; set; }
         public static string Adresse_PLZ { get; set; }
         public static string  Adresse_Ort { get; set; }
-        public static int     Id_Bezirk { get; set; }
-        public static int     Id_Bundesland { get; set; }
         public static string  Email { get; set; }
         public static int     IK_Nr_UebergeordneteIK { get; set; }
-        public static short   IK_Nr_Datenannahmestelle { get; set; }
+        public static List<Annahmestelle> annameStList = new List<Annahmestelle>();
 
         static void Main(string[] args)
         {
@@ -28,13 +26,9 @@ namespace BKParser
             var kostTraegerList = new List<Kostentraeger>();
 
             ResetInstance();
-            ResetAnnameSt();
         
             foreach (string line in lines)
-            {
-                var annameStList = new List<Annahmestelle>();
-
-
+            {           
                 string prefix = line[0..3];
                 switch (prefix)
                 {
@@ -58,18 +52,21 @@ namespace BKParser
                     case "VDT":
                         IK_Nr_UebergeordneteIK = int.Parse(line[4..(line.Length - 1)]);
                         break;
+                    case "DFU":
+                        Email = line[(IndexOfNth(line, '+', 7)+1)..(line.Length - 1)];
+                        break;
                     case "VKG":
                         int bezirk = 12;
                         int bundesland = 12;
-                        int stelleId = 12;
+                        int stelleId = int.Parse(line[7..IndexOfNth(line, '+', 3)]);
 
                         annameStList.Add(new Annahmestelle(bezirk, bundesland, stelleId));
                         break;
                     case "UNT":
                         kostTraegerList.Add(new Kostentraeger(IK_Nr, Name, Adresse_StrasseHausnumm, Adresse_PLZ,
-                            Adresse_Ort, Id_Bezirk, Id_Bundesland, Email, IK_Nr_UebergeordneteIK, IK_Nr_Datenannahmestelle));
+                            Adresse_Ort, Email, IK_Nr_UebergeordneteIK, annameStList));
                         ResetInstance();
-                        
+                        annameStList = new List<Annahmestelle>();
                         break;
                     default:
                         break;
@@ -77,11 +74,7 @@ namespace BKParser
 
             }
         }
-
-        private static void ResetAnnameSt()
-        {
-            throw new NotImplementedException();
-        }
+              
 
         public static void ResetInstance()
         {
@@ -90,11 +83,8 @@ namespace BKParser
             Adresse_StrasseHausnumm = string.Empty;
             Adresse_PLZ = string.Empty;
             Adresse_Ort = string.Empty;
-            Id_Bezirk = 0;
-            Id_Bundesland = 0;
             Email = string.Empty;
             IK_Nr_UebergeordneteIK = 0;
-            IK_Nr_Datenannahmestelle = 0;
         }
         private static int IndexOfNth(string str, char c, int n)
         {
