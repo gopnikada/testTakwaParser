@@ -11,7 +11,7 @@ namespace BKParser
         public int IK_Nr { get; set; } // IK-Nummer
         public string Name { get; set; }
         public string Adresse_StrasseHausnummer { get; set; } // Adresse Straße/Hausnummer
-        public int Adresse_PLZ { get; set; } // Adresse PLZ
+        public string Adresse_PLZ { get; set; } // Adresse PLZ
         public string Adresse_Ort { get; set; } // Adresse Ort
         public int Id_Bezirk { get; set; }
         public int Id_Bundesland { get; set; }
@@ -23,7 +23,7 @@ namespace BKParser
         int ikNr,
         string name,
         string adresseStrasseHausnummer,
-        int adressePLZ,
+        string adressePLZ,
         string adresseOrt,
         int idBezirk,
         int idBundesland,

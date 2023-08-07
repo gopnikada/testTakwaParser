@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Text;
 
 namespace BKParser
 {
@@ -8,7 +9,7 @@ namespace BKParser
         public static int IK_Nr { get; set; }
         public static string  Name { get; set; }
         public static string  Adresse_StrasseHausnumm { get; set; }
-        public static int     Adresse_PLZ { get; set; }
+        public static string Adresse_PLZ { get; set; }
         public static string  Adresse_Ort { get; set; }
         public static int     Id_Bezirk { get; set; }
         public static int     Id_Bundesland { get; set; }
@@ -21,7 +22,7 @@ namespace BKParser
             string filePath = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok.ke0";
 
 
-            var lines = File.ReadLines(filePath);
+            var lines = File.ReadLines(filePath, Encoding.Latin1);
 
             var kostTraegerList = new List<Kostentraeger>();
 
@@ -29,38 +30,40 @@ namespace BKParser
         
             foreach (string line in lines)
             {
-                if(line.Count(c => c == '+') > 2 && line.StartsWith("NAM"))
+
+
+                string prefix = line[0..3];
+                switch (prefix)
                 {
-                    var test = new string(line[7..IndexOfNth(line, '+', 3)].Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray());
+                    case "IDK":
+                        IK_Nr = int.Parse(line[3..13]);
+                        break;
+                    case "NAM":
+                        Name = line.Count(c => c == '+') > 2 ? 
+                            new string(line[7..IndexOfNth(line, '+', 3)].Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray()):
+                            line[7..(line.Length - 1)];
+                        break;
 
-
+                    case "ANS":
+                        if (line.StartsWith("ANS+1"))
+                        {
+                            Adresse_Ort = line[(IndexOfNth(line, '+', 3)+1)..IndexOfNth(line, '+', 4)];
+                            Adresse_PLZ = line[6..11];
+                            Adresse_StrasseHausnumm = line[(IndexOfNth(line, '+', 4)+1)..(line.Length-1)];
+                        }
+                        break;
+                    case "VKG":
+                        
+                        break;
+                    case "UNT":
+                        kostTraegerList.Add(new Kostentraeger(IK_Nr, Name, Adresse_StrasseHausnumm, Adresse_PLZ,
+                            Adresse_Ort, Id_Bezirk, Id_Bundesland, Email, IK_Nr_UebergeordneteIK, IK_Nr_Datenannahmestelle));
+                        ResetInstance();
+                        
+                        break;
+                    default:
+                        break;
                 }
-
-                //string prefix = line[0..3];
-                //switch (prefix)
-                //{
-                //    case "IDK":
-                //        IK_Nr = int.Parse(line[3..13]);
-                //        break;
-                //    case "NAM":
-                //        Name = line.Count(c => c == '+') > 2 ? line[7..line.IndexOf('+', 1, 3)] : line[7..(line.Length-1)];
-                //        break;
-                //    case "ANS":
-                //        // code block
-                //        break;
-                //    case "VKG":
-                //        // code block
-                //        break;
-                //    case "UNT":
-                //        kostTraegerList.Add(new Kostentraeger(IK_Nr, Name, Adresse_StrasseHausnumm, Adresse_PLZ,
-                //            Adresse_Ort, Id_Bezirk, Id_Bundesland, Email, IK_Nr_UebergeordneteIK, IK_Nr_Datenannahmestelle));
-                //        ResetInstance();
-                //        // end
-                //        break;
-                //    default:
-                //        // code block
-                //        break;
-                //}
 
             }
         }
@@ -70,7 +73,7 @@ namespace BKParser
             IK_Nr = 0;
             Name = string.Empty;
             Adresse_StrasseHausnumm = string.Empty;
-            Adresse_PLZ = 0;
+            Adresse_PLZ = string.Empty;
             Adresse_Ort = string.Empty;
             Id_Bezirk = 0;
             Id_Bundesland = 0;
