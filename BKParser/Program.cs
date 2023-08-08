@@ -39,16 +39,18 @@ namespace BKParser
                         IK_Nr = int.Parse(line[3..13]);
                         break;
                     case "NAM":
-                        Name = line.Count(c => c == '+') > 2 ? 
-                            new string(line[7..IndexOfNth(line, '+', 3)].Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray()):
-                            line[7..(line.Length - 1)];
+                        //Name = line.Count(c => c == '+') > 2 ? 
+                        //    new string(line[7..IndexOfNth(line, '+', 3)].Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray()):
+                        //    line[7..(line.Length - 1)];
+
+                        Name = string.Join(' ', line[7..(line.Length - 1)].Split('+'));
                         break;
 
                     case "ANS":
                         if (line.StartsWith("ANS+1"))
                         {                           
                             Adresse_PLZ = line[6..11];
-                            var ortStrNum = line[12..].Split('+');
+                            var ortStrNum = line[12..(line.Length - 1)].Split('+');
 
 
                             switch (ortStrNum.Length)
@@ -72,7 +74,7 @@ namespace BKParser
                     case "DFU":
                         if (line.StartsWith("DFU+01"))
                         {
-                            Email = line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)];
+                            Email = !char.IsNumber(line[line.Length - 2]) ? line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)]:"";
                         }
                         break;
                     case "VKG":
