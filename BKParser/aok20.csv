@@ -60,7 +60,7 @@
 101097008;AOK Sachsen-Anhalt;Lüneburger Str. 4;39106;Magdeburg;da@dta.aok.de;19990101;;;101097008
 101097008;AOK Sachsen-Anhalt;Lüneburger Str. 4;39106;Magdeburg;da@dta.aok.de;19990101;;;101097008
 101097019;AOK Sachsen-Anhalt;Markt 12-13;39539;Havelberg;;19990101;;;101097008
-101197316;AOK Sachsen-Anhalt;P.-Gerhard-Str. 16;06773;Gräfenhainichen;;19990101;;;101097008
+101197316;AOK Sachsen-Anhalt;P.-Gerhard-Str. 16;6773;Gräfenhainichen;;19990101;;;101097008
 101317004;AOK NORDWEST (Region Schleswig-Holstein);Edisonstr. 70;24145;Kiel;da@dta.aok.de;19970403;;;101317004
 101317004;AOK NORDWEST (Region Schleswig-Holstein);Edisonstr. 70;24145;Kiel;da@dta.aok.de;19970403;;;101317004
 101317004;AOK NORDWEST (Region Schleswig-Holstein);Edisonstr. 70;24145;Kiel;da@dta.aok.de;19970403;;;661430035
@@ -1005,45 +1005,45 @@
 107018425;AOK Rhein-Neckar-Odenwald;Renzstr. 11-13;68161;Mannheim;;19970403;;;107018425
 107118277;AOK Nordschwarzwald;Zerennerstr. 49;75172;Pforzheim;;19970403;;;108018007
 107118277;AOK Nordschwarzwald;Zerennerstr. 49;75172;Pforzheim;;19970403;;;107118277
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Sachsen-Anhalt;101097008
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Hessen;106198626
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Rheinland-Pfalz;106198626
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Saarland;106198626
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Berlin;106198626
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Thüringen;106198626
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Brandenburg;100696023
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;20;Nordrhein-Westfalen;103411401
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Mecklenburg-Vorpommern;100295017
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Schleswig-Holstein;100295017
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Hamburg;100295017
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Niedersachsen;102110939
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;38;Nordrhein-Westfalen;104212516
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Bremen;103119199
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Bayern;108310400
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;Baden-Württemberg;108018007
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107799614
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107799614
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107799614
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
-107299005;DAV AOK Plus Sachsen;Sternplatz 7;01067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Sachsen-Anhalt;101097008
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Hessen;106198626
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Rheinland-Pfalz;106198626
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Saarland;106198626
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Berlin;106198626
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Thüringen;106198626
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Brandenburg;100696023
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;20;Nordrhein-Westfalen;103411401
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Mecklenburg-Vorpommern;100295017
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Schleswig-Holstein;100295017
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Hamburg;100295017
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Niedersachsen;102110939
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;38;Nordrhein-Westfalen;104212516
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Bremen;103119199
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Bayern;108310400
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;Baden-Württemberg;108018007
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107799614
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107799614
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107799614
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
+107299005;DAV AOK Plus Sachsen;Sternplatz 7;1067;Dresden;;19970403;;;107299005
 107310373;IT-Services für den Gesundheitsmarkt;Fünftenweg 31;34613;Schwalmstadt;da@dta.aok.de;19970403;;Brandenburg;100696023
 107310373;IT-Services für den Gesundheitsmarkt;Fünftenweg 31;34613;Schwalmstadt;da@dta.aok.de;19970403;;Mecklenburg-Vorpommern;100295017
 107310373;IT-Services für den Gesundheitsmarkt;Fünftenweg 31;34613;Schwalmstadt;da@dta.aok.de;19970403;;Sachsen-Anhalt;101097008

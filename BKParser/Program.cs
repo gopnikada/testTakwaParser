@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq.Expressions;
 using System.Text;
 using BKParser.Entities;
+using BKParser.Utils;
 using Microsoft.VisualBasic;
 
 namespace BKParser
@@ -23,104 +24,22 @@ namespace BKParser
 
         static void Main(string[] args)
         {
+
+
             string filePath = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok.ke0";
-            string pathToWrite = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok5.csv";
-            File.Create(pathToWrite);
+            string pathToWrite = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok20.csv";
+            Task.Run(() => { File.Create(pathToWrite); });
 
 
             ReadFileContent(filePath);
-            var aggregated = KostTraegerList.SelectMany(x => x.Annahmestellen.Where(y => true), (x, y) => new { Stelle = x, Kasse = y })
-                .Select(x => new OutputItem(x.Stelle.IK_Nr, x.Stelle.Name, x.Stelle.Adresse_StrasseHausnummer,
-                x.Stelle.Adresse_PLZ, x.Stelle.Adresse_Ort, x.Stelle.Email, x.Stelle.IK_Nr_UebergeordneteIK,
-                x.Kasse.Id_Bezirk, x.Kasse.Id_Bundesland, x.Kasse.IK_Nr_Datenannahmestelle)).ToList();
+            List<OutputItem> aggregated = Helpers.DataTransform(KostTraegerList);
 
-            aggregated.ForEach((x) => {
-
-                switch (x.Id_Bundesland)
-                {
-                    case "01":
-                        x.Id_Bundesland = "Schleswig-Holstein";
-                        break;
-                    case "02":
-                        x.Id_Bundesland = "Hamburg";
-                        break;
-                    case "03":
-                        x.Id_Bundesland = "Niedersachsen";
-                        break;
-                    case "04":
-                        x.Id_Bundesland = "Bremen";
-                        break;
-                    case "05":
-                        x.Id_Bundesland = "Nordrhein-Westfalen";
-                        break;
-                    case "06":
-                        x.Id_Bundesland = "Hessen";
-                        break;
-                    case "07":
-                        x.Id_Bundesland = "Rheinland-Pfalz";
-                        break;
-                    case "08":
-                        x.Id_Bundesland = "Baden-Württemberg";
-                        break;
-                    case "09":
-                        x.Id_Bundesland = "Bayern";
-                        break;
-                    case "10":
-                        x.Id_Bundesland = "Saarland";
-                        break;
-                    case "11":
-                        x.Id_Bundesland = "Berlin";
-                        break;
-                    case "12":
-                        x.Id_Bundesland = "Brandenburg";
-                        break;
-                    case "13":
-                        x.Id_Bundesland = "Mecklenburg-Vorpommern";
-                        break;
-                    case "14":
-                        x.Id_Bundesland = "Sachsen";
-                        break;
-                    case "15":
-                        x.Id_Bundesland = "Sachsen-Anhalt";
-                        break;
-                    case "16":
-                        x.Id_Bundesland = "Thüringen";
-                        break;
-                    case "99":
-                        x.Id_Bundesland = "Alle Bundesländer";
-                        break;
-                    default:
-                        break;
-                }
-            });
-
-
-
-            WriteToCsv(pathToWrite, aggregated);
+            Helpers.WriteToCsv(pathToWrite, aggregated);
 
             Console.WriteLine(1);
         }
 
-        private static void WriteToCsv(string path, List<OutputItem> aggregated)
-        {
-            
-            try
-            {
-               
-               foreach (var row in aggregated)
-                {
-
-                    string contents = row.ToString();
-                    File.AppendAllText(path, contents, Encoding.Latin1);
-                    File.AppendAllText(path, Environment.NewLine);
-                }
-                
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
+      
 
         private static void ReadFileContent(string filePath)
         {
@@ -172,14 +91,14 @@ namespace BKParser
                     case "DFU":
                         if (line.StartsWith("DFU+01"))
                         {
-                            Email = !char.IsNumber(line[line.Length - 2]) ? line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)] : "";
+                            Email = !char.IsNumber(line[line.Length - 2]) ? line[(Helpers.IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)] : "";
                         }
                         break;
                     case "VKG":
                         string bundesland = string.Empty;
                         string bezirk = string.Empty;
-                        int stelleId = int.Parse(line[7..IndexOfNth(line, '+', 3)]);
-                        var bezBundLTar = line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)].Replace("++", "+").Split('+').ToList().Where(x => x.Length > 0).ToList();
+                        int stelleId = int.Parse(line[7..Helpers.IndexOfNth(line, '+', 3)]);
+                        var bezBundLTar = line[(Helpers.IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)].Replace("++", "+").Split('+').ToList().Where(x => x.Length > 0).ToList();
 
                         switch (bezBundLTar.Count)
                         {
@@ -222,18 +141,6 @@ namespace BKParser
             Email = string.Empty;
             IK_Nr_UebergeordneteIK = 0;
         }
-        private static int IndexOfNth(string str, char c, int n)
-        {
-            int s = -1;
-
-            for (int i = 0; i < n; i++)
-            {
-                s = str.IndexOf(c, s + 1);
-
-                if (s == -1) break;
-            }
-
-            return s;
-        }
+       
     }
 }
