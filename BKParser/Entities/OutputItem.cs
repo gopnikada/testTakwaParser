@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Xml.Linq;
 
 namespace BKParser.Entities
 {
@@ -37,6 +39,12 @@ namespace BKParser.Entities
             Id_Bezirk = idBezirk;
             Id_Bundesland = idBundesland;
             IK_Nr_Datenannahmestelle = ikNrDatenannahmestelle;
+        }
+        public override string ToString()
+        {
+            return IK_Nr + ";" + Name + ";" + Adresse_StrasseHausnummer + ";" +
+               Adresse_PLZ + ";" + Adresse_Ort + ";" + Email + ";" + IK_Nr_UebergeordneteIK + ";" +
+               Id_Bezirk + ";" + Id_Bundesland + ";" + IK_Nr_Datenannahmestelle;
         }
     }
 }

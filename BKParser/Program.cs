@@ -24,29 +24,94 @@ namespace BKParser
         static void Main(string[] args)
         {
             string filePath = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok.ke0";
-            string pathToWrite = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok.csv";
+            string pathToWrite = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok5.csv";
+            File.Create(pathToWrite);
 
 
             ReadFileContent(filePath);
             var aggregated = KostTraegerList.SelectMany(x => x.Annahmestellen.Where(y => true), (x, y) => new { Stelle = x, Kasse = y })
                 .Select(x => new OutputItem(x.Stelle.IK_Nr, x.Stelle.Name, x.Stelle.Adresse_StrasseHausnummer,
-                x.Stelle.Adresse_PLZ, x.Stelle.Adresse_Ort, x.Stelle.Email, x.Stelle.IK_Nr_UebergeordneteIK, x.Kasse.Id_Bezirk, x.Kasse.Id_Bundesland, x.Kasse.IK_Nr_Datenannahmestelle)).ToList();
+                x.Stelle.Adresse_PLZ, x.Stelle.Adresse_Ort, x.Stelle.Email, x.Stelle.IK_Nr_UebergeordneteIK,
+                x.Kasse.Id_Bezirk, x.Kasse.Id_Bundesland, x.Kasse.IK_Nr_Datenannahmestelle)).ToList();
 
-            
-            
-            //WriteToCsv(pathToWrite, aggregated);
+            aggregated.ForEach((x) => {
+
+                switch (x.Id_Bundesland)
+                {
+                    case "01":
+                        x.Id_Bundesland = "Schleswig-Holstein";
+                        break;
+                    case "02":
+                        x.Id_Bundesland = "Hamburg";
+                        break;
+                    case "03":
+                        x.Id_Bundesland = "Niedersachsen";
+                        break;
+                    case "04":
+                        x.Id_Bundesland = "Bremen";
+                        break;
+                    case "05":
+                        x.Id_Bundesland = "Nordrhein-Westfalen";
+                        break;
+                    case "06":
+                        x.Id_Bundesland = "Hessen";
+                        break;
+                    case "07":
+                        x.Id_Bundesland = "Rheinland-Pfalz";
+                        break;
+                    case "08":
+                        x.Id_Bundesland = "Baden-Württemberg";
+                        break;
+                    case "09":
+                        x.Id_Bundesland = "Bayern";
+                        break;
+                    case "10":
+                        x.Id_Bundesland = "Saarland";
+                        break;
+                    case "11":
+                        x.Id_Bundesland = "Berlin";
+                        break;
+                    case "12":
+                        x.Id_Bundesland = "Brandenburg";
+                        break;
+                    case "13":
+                        x.Id_Bundesland = "Mecklenburg-Vorpommern";
+                        break;
+                    case "14":
+                        x.Id_Bundesland = "Sachsen";
+                        break;
+                    case "15":
+                        x.Id_Bundesland = "Sachsen-Anhalt";
+                        break;
+                    case "16":
+                        x.Id_Bundesland = "Thüringen";
+                        break;
+                    case "99":
+                        x.Id_Bundesland = "Alle Bundesländer";
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+
+
+            WriteToCsv(pathToWrite, aggregated);
 
             Console.WriteLine(1);
         }
 
         private static void WriteToCsv(string path, List<OutputItem> aggregated)
         {
+            
             try
             {
-                File.Create(path);
+               
                foreach (var row in aggregated)
                 {
-                    string strToWrite = string.Join(';', row);
+
+                    string contents = row.ToString();
+                    File.AppendAllText(path, contents, Encoding.Latin1);
                     File.AppendAllText(path, Environment.NewLine);
                 }
                 
