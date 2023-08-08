@@ -1,6 +1,10 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq.Expressions;
 using System.Text;
 using BKParser.Entities;
+using Microsoft.VisualBasic;
 
 namespace BKParser
 {
@@ -15,22 +19,42 @@ namespace BKParser
         public static string Email { get; set; }
         public static int IK_Nr_UebergeordneteIK { get; set; }
 
-        public static List<Kostentraeger> kostTraegerList = new List<Kostentraeger>();
+        public static List<Kostentraeger> KostTraegerList = new List<Kostentraeger>();
 
         static void Main(string[] args)
         {
             string filePath = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok.ke0";
+            string pathToWrite = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok.csv";
+
 
             ReadFileContent(filePath);
-            var test = kostTraegerList.SelectMany(x => x.Annahmestellen.Where(y => true), (x, y) => new { r = x, d = y }).ToList();
+            var aggregated = KostTraegerList.SelectMany(x => x.Annahmestellen.Where(y => true), (x, y) => new { Stelle = x, Kasse = y })
+                .Select(x => new OutputItem(x.Stelle.IK_Nr, x.Stelle.Name, x.Stelle.Adresse_StrasseHausnummer,
+                x.Stelle.Adresse_PLZ, x.Stelle.Adresse_Ort, x.Stelle.Email, x.Stelle.IK_Nr_UebergeordneteIK, x.Kasse.Id_Bezirk, x.Kasse.Id_Bundesland, x.Kasse.IK_Nr_Datenannahmestelle)).ToList();
 
+            
+            
+            //WriteToCsv(pathToWrite, aggregated);
 
             Console.WriteLine(1);
         }
 
-        private static void WriteToCsv()
+        private static void WriteToCsv(string path, List<OutputItem> aggregated)
         {
-            
+            try
+            {
+                File.Create(path);
+               foreach (var row in aggregated)
+                {
+                    string strToWrite = string.Join(';', row);
+                    File.AppendAllText(path, Environment.NewLine);
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         private static void ReadFileContent(string filePath)
@@ -111,7 +135,7 @@ namespace BKParser
                         annameStList.Add(new Annahmestelle(bezirk, bundesland, stelleId));
                         break;
                     case "UNT":
-                        kostTraegerList.Add(new Kostentraeger(IK_Nr, Name, Adresse_StrasseHausnumm, Adresse_PLZ,
+                        KostTraegerList.Add(new Kostentraeger(IK_Nr, Name, Adresse_StrasseHausnumm, Adresse_PLZ,
                             Adresse_Ort, Email, IK_Nr_UebergeordneteIK, new List<Annahmestelle>(annameStList)));
                         ResetInstance();
                         annameStList.Clear();
