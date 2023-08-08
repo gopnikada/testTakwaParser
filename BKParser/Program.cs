@@ -18,8 +18,8 @@ namespace BKParser
 
         static void Main(string[] args)
         {
-            string filePath = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok.ke0";
 
+            string filePath = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok.ke0";
 
             var lines = File.ReadLines(filePath, Encoding.Latin1);
 
@@ -56,11 +56,23 @@ namespace BKParser
                         Email = line[(IndexOfNth(line, '+', 7)+1)..(line.Length - 1)];
                         break;
                     case "VKG":
-                        int bezirk = 12;
-                        int bundesland = 12;
                         int stelleId = int.Parse(line[7..IndexOfNth(line, '+', 3)]);
+                        var bezBundLTar = line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)].Replace("++", "+").Split('+').ToList().Where(x=>x.Length>0).ToList();
+                            //var rm = bezBundLTar.RemoveAll(x=>x.Equals(string.Empty));
+                        //switch (bezBundLTar.Length)
+                        //{
+                        //    case x:
+                        //        // code block
+                        //        break;
+                        //    case y:
+                        //        // code block
+                        //        break;
+                        //    default:
+                        //        // code block
+                        //        break;
+                        //}
 
-                        annameStList.Add(new Annahmestelle(bezirk, bundesland, stelleId));
+                        //annameStList.Add(new Annahmestelle(bezirk, bundesland, stelleId));
                         break;
                     case "UNT":
                         kostTraegerList.Add(new Kostentraeger(IK_Nr, Name, Adresse_StrasseHausnumm, Adresse_PLZ,
