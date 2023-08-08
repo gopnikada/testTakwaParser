@@ -8,47 +8,56 @@ namespace BKParser
     {
 
         public static int IK_Nr { get; set; }
-        public static string  Name { get; set; }
-        public static string  Adresse_StrasseHausnumm { get; set; }
+        public static string Name { get; set; }
+        public static string Adresse_StrasseHausnumm { get; set; }
         public static string Adresse_PLZ { get; set; }
-        public static string  Adresse_Ort { get; set; }
-        public static string  Email { get; set; }
-        public static int     IK_Nr_UebergeordneteIK { get; set; }
+        public static string Adresse_Ort { get; set; }
+        public static string Email { get; set; }
+        public static int IK_Nr_UebergeordneteIK { get; set; }
 
-        
+        public static List<Kostentraeger> kostTraegerList = new List<Kostentraeger>();
 
         static void Main(string[] args)
         {
-
             string filePath = "C:\\Users\\User\\source\\repos\\BKParser\\BKParser\\aok.ke0";
 
+            ReadFileContent(filePath);
+            var test = kostTraegerList.SelectMany(x => x.Annahmestellen.Where(y => true), (x, y) => new { r = x, d = y }).ToList();
+
+
+            Console.WriteLine(1);
+        }
+
+        private static void WriteToCsv()
+        {
+            
+        }
+
+        private static void ReadFileContent(string filePath)
+        {
             var lines = File.ReadLines(filePath, Encoding.Latin1);
 
-            var kostTraegerList = new List<Kostentraeger>();
+            
 
             ResetInstance();
             var annameStList = new List<Annahmestelle>();
             foreach (string line in lines)
             {
-                
+
 
                 string prefix = line[0..3];
                 switch (prefix)
                 {
-                    case "IDK":              
+                    case "IDK":
                         IK_Nr = int.Parse(line[3..13]);
                         break;
                     case "NAM":
-                        //Name = line.Count(c => c == '+') > 2 ? 
-                        //    new string(line[7..IndexOfNth(line, '+', 3)].Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray()):
-                        //    line[7..(line.Length - 1)];
-
                         Name = string.Join(' ', line[7..(line.Length - 1)].Split('+'));
                         break;
 
                     case "ANS":
                         if (line.StartsWith("ANS+1"))
-                        {                           
+                        {
                             Adresse_PLZ = line[6..11];
                             var ortStrNum = line[12..(line.Length - 1)].Split('+');
 
@@ -66,7 +75,7 @@ namespace BKParser
                                     break;
                             }
                         }
-                       
+
                         break;
                     case "VDT":
                         IK_Nr_UebergeordneteIK = int.Parse(line[4..(line.Length - 1)]);
@@ -74,17 +83,17 @@ namespace BKParser
                     case "DFU":
                         if (line.StartsWith("DFU+01"))
                         {
-                            Email = !char.IsNumber(line[line.Length - 2]) ? line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)]:"";
+                            Email = !char.IsNumber(line[line.Length - 2]) ? line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)] : "";
                         }
                         break;
                     case "VKG":
                         string bundesland = string.Empty;
                         string bezirk = string.Empty;
                         int stelleId = int.Parse(line[7..IndexOfNth(line, '+', 3)]);
-                        var bezBundLTar = line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)].Replace("++", "+").Split('+').ToList().Where(x=>x.Length>0).ToList();
+                        var bezBundLTar = line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)].Replace("++", "+").Split('+').ToList().Where(x => x.Length > 0).ToList();
 
                         switch (bezBundLTar.Count)
-                        {                            
+                        {
                             case 2:
                                 bundesland = bezBundLTar[0];
                                 break;
@@ -112,9 +121,7 @@ namespace BKParser
                 }
 
             }
-            Console.WriteLine(1);
         }
-              
 
         public static void ResetInstance()
         {
