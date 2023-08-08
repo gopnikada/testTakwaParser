@@ -14,7 +14,8 @@ namespace BKParser
         public static string  Adresse_Ort { get; set; }
         public static string  Email { get; set; }
         public static int     IK_Nr_UebergeordneteIK { get; set; }
-        public static List<Annahmestelle> annameStList = new List<Annahmestelle>();
+
+        
 
         static void Main(string[] args)
         {
@@ -26,13 +27,15 @@ namespace BKParser
             var kostTraegerList = new List<Kostentraeger>();
 
             ResetInstance();
-        
+            var annameStList = new List<Annahmestelle>();
             foreach (string line in lines)
-            {           
+            {
+                
+
                 string prefix = line[0..3];
                 switch (prefix)
                 {
-                    case "IDK":
+                    case "IDK":              
                         IK_Nr = int.Parse(line[3..13]);
                         break;
                     case "NAM":
@@ -43,48 +46,71 @@ namespace BKParser
 
                     case "ANS":
                         if (line.StartsWith("ANS+1"))
-                        {
-                            Adresse_Ort = line[(IndexOfNth(line, '+', 3)+1)..IndexOfNth(line, '+', 4)];
+                        {                           
                             Adresse_PLZ = line[6..11];
-                            Adresse_StrasseHausnumm = line[(IndexOfNth(line, '+', 4)+1)..(line.Length-1)];
+                            var ortStrNum = line[12..].Split('+');
+
+
+                            switch (ortStrNum.Length)
+                            {
+                                case 2:
+                                    Adresse_Ort = ortStrNum[0];
+                                    Adresse_StrasseHausnumm = ortStrNum[1];
+                                    break;
+                                case 1:
+                                    Adresse_Ort = ortStrNum[0];
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
+                       
                         break;
                     case "VDT":
                         IK_Nr_UebergeordneteIK = int.Parse(line[4..(line.Length - 1)]);
                         break;
                     case "DFU":
-                        Email = line[(IndexOfNth(line, '+', 7)+1)..(line.Length - 1)];
+                        if (line.StartsWith("DFU+01"))
+                        {
+                            Email = line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)];
+                        }
                         break;
                     case "VKG":
+                        string bundesland = string.Empty;
+                        string bezirk = string.Empty;
                         int stelleId = int.Parse(line[7..IndexOfNth(line, '+', 3)]);
                         var bezBundLTar = line[(IndexOfNth(line, '+', 7) + 1)..(line.Length - 1)].Replace("++", "+").Split('+').ToList().Where(x=>x.Length>0).ToList();
-                            //var rm = bezBundLTar.RemoveAll(x=>x.Equals(string.Empty));
-                        //switch (bezBundLTar.Length)
-                        //{
-                        //    case x:
-                        //        // code block
-                        //        break;
-                        //    case y:
-                        //        // code block
-                        //        break;
-                        //    default:
-                        //        // code block
-                        //        break;
-                        //}
 
-                        //annameStList.Add(new Annahmestelle(bezirk, bundesland, stelleId));
+                        switch (bezBundLTar.Count)
+                        {                            
+                            case 2:
+                                bundesland = bezBundLTar[0];
+                                break;
+                            case 3:
+                                bundesland = bezBundLTar[0];
+                                bezirk = bezBundLTar[1];
+                                break;
+                            case 1:
+                                break;
+                            default:
+                                break;
+
+                        }
+
+                        annameStList.Add(new Annahmestelle(bezirk, bundesland, stelleId));
                         break;
                     case "UNT":
                         kostTraegerList.Add(new Kostentraeger(IK_Nr, Name, Adresse_StrasseHausnumm, Adresse_PLZ,
-                            Adresse_Ort, Email, IK_Nr_UebergeordneteIK, annameStList));
+                            Adresse_Ort, Email, IK_Nr_UebergeordneteIK, new List<Annahmestelle>(annameStList)));
                         ResetInstance();
-                        annameStList = new List<Annahmestelle>();
+                        annameStList.Clear();
                         break;
                     default:
                         break;
                 }
 
             }
+            Console.WriteLine(1);
         }
               
 
